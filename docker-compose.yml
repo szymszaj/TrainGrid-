@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: traingrid
+      POSTGRES_PASSWORD: traingrid
+      POSTGRES_DB: traingrid
+    ports:
+      - "5432:5432"
+    volumes:
+      - traingrid_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U traingrid"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  traingrid_db_data:

@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         String     @id @default(cuid())
+  email      String?    @unique
+  name       String
+  createdAt  DateTime   @default(now())
+  categories Category[]
+  entries    Entry[]
+  goals      Goal[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  color     String
+  icon      String?
+  createdAt DateTime @default(now())
+  entries   Entry[]
+  goals     Goal[]
+
+  @@unique([userId, name])
+}
+
+model Entry {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  date            DateTime @db.Date
+  topic           String
+  description     String?
+  durationMinutes Int?
+  distanceKm      Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId, date])
+  @@index([categoryId, date])
+}
+
+enum GoalMetric {
+  SESSIONS
+  DURATION_MINUTES
+  DISTANCE_KM
+}
+
+enum GoalPeriod {
+  WEEKLY
+  MONTHLY
+}
+
+model Goal {
+  id          String     @id @default(cuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId  String?
+  category    Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  title       String
+  metric      GoalMetric
+  targetValue Float
+  period      GoalPeriod
+  createdAt   DateTime   @default(now())
+}
