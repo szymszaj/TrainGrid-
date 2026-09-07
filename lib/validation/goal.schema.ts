@@ -11,4 +11,5 @@ export const goalFormSchema = z.object({
   categoryId: z.string().optional().or(z.literal("")),
 });
 
-export type GoalFormValues = z.infer<typeof goalFormSchema>;
+export type GoalFormInput = z.input<typeof goalFormSchema>;
+export type GoalFormValues = z.output<typeof goalFormSchema>;

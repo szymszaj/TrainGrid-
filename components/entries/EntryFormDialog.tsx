@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { EntryForm } from "@/components/entries/EntryForm";
 import { createEntry, updateEntry } from "@/lib/actions/entry.actions";
-import type { EntryFormValues } from "@/lib/validation/entry.schema";
+import type { EntryFormInput, EntryFormValues } from "@/lib/validation/entry.schema";
 import type { CategoryOption } from "@/types/category.types";
 import type { EntryListItem } from "@/types/entry.types";
 
@@ -26,7 +26,7 @@ function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-function defaultValuesFor(entry: EntryListItem | undefined): EntryFormValues {
+function defaultValuesFor(entry: EntryListItem | undefined): EntryFormInput {
   if (!entry) {
     return {
       categoryId: "",

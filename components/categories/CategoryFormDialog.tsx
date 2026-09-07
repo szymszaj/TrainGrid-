@@ -25,7 +25,7 @@ import { PlusIcon } from "lucide-react";
 
 interface CategoryFormDialogProps {
   onCreated?: (category: Category) => void;
-  trigger?: React.ReactNode;
+  trigger?: React.ReactElement;
 }
 
 export function CategoryFormDialog({ onCreated, trigger }: CategoryFormDialogProps) {
@@ -69,14 +69,16 @@ export function CategoryFormDialog({ onCreated, trigger }: CategoryFormDialogPro
         if (!next) reset();
       }}
     >
-      <DialogTrigger asChild>
-        {trigger ?? (
-          <Button type="button" variant="outline" size="sm">
-            <PlusIcon className="size-4" />
-            Nowa kategoria
-          </Button>
-        )}
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          trigger ?? (
+            <Button type="button" variant="outline" size="sm">
+              <PlusIcon className="size-4" />
+              Nowa kategoria
+            </Button>
+          )
+        }
+      />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Nowa kategoria</DialogTitle>

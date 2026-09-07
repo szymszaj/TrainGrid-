@@ -52,7 +52,7 @@ export function DeleteEntryButton({ entryId }: DeleteEntryButtonProps) {
             {isPending ? "Usuwanie..." : "Usuń"}
           </AlertDialogAction>
         </AlertDialogFooter>
-      </AlertDialog>
+      </AlertDialogContent>
     </AlertDialog>
   );
 }

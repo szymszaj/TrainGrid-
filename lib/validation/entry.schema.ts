@@ -14,4 +14,5 @@ export const entryFormSchema = z.object({
   distanceKm: optionalPositiveNumber,
 });
 
-export type EntryFormValues = z.infer<typeof entryFormSchema>;
+export type EntryFormInput = z.input<typeof entryFormSchema>;
+export type EntryFormValues = z.output<typeof entryFormSchema>;

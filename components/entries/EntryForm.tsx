@@ -9,12 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CategorySelect } from "@/components/categories/CategorySelect";
 import { CategoryFormDialog } from "@/components/categories/CategoryFormDialog";
-import { entryFormSchema, type EntryFormValues } from "@/lib/validation/entry.schema";
+import { entryFormSchema, type EntryFormInput, type EntryFormValues } from "@/lib/validation/entry.schema";
 import type { CategoryOption } from "@/types/category.types";
 
 interface EntryFormProps {
   categories: CategoryOption[];
-  defaultValues: EntryFormValues;
+  defaultValues: EntryFormInput;
   onSubmit: (values: EntryFormValues) => void;
   isSubmitting: boolean;
   submitLabel: string;
@@ -30,7 +30,7 @@ export function EntryForm({ categories, defaultValues, onSubmit, isSubmitting, s
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<EntryFormValues>({
+  } = useForm<EntryFormInput, unknown, EntryFormValues>({
     resolver: zodResolver(entryFormSchema),
     defaultValues,
   });

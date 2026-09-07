@@ -2,11 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUserId } from "@/lib/data/user.data";
 import type { Prisma } from "@prisma/client";
 
-const entryWithCategory = {
-  include: { category: true },
-} satisfies Prisma.EntryDefaultArgs;
-
-export type EntryWithCategory = Prisma.EntryGetPayload<typeof entryWithCategory>;
+export type EntryWithCategory = Prisma.EntryGetPayload<{ include: { category: true } }>;
 
 export async function getEntriesForYear(
   year: number,
