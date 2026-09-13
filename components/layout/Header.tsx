@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EntryFormDialog } from "@/components/entries/EntryFormDialog";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
 import type { CategoryOption } from "@/types/category.types";
 
@@ -47,10 +48,13 @@ export function Header({ categories }: HeaderProps) {
             ))}
           </nav>
         </div>
-        <Button size="sm" onClick={() => setAddOpen(true)}>
-          <PlusIcon className="size-4" />
-          Dodaj wpis
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button size="sm" onClick={() => setAddOpen(true)}>
+            <PlusIcon className="size-4" />
+            Dodaj wpis
+          </Button>
+        </div>
       </div>
       <EntryFormDialog categories={categories} open={addOpen} onOpenChange={setAddOpen} />
     </header>

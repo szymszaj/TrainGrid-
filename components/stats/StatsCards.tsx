@@ -1,4 +1,8 @@
+"use client";
+
+import { useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { gsap, useGSAP } from "@/lib/gsap";
 import type { StatsSummary } from "@/types/stats.types";
 
 interface StatsCardsProps {
@@ -30,10 +34,25 @@ export function StatsCards({ stats }: StatsCardsProps) {
     { label: "Najdłuższa passa", value: `${stats.longestStreak} ${stats.longestStreak === 1 ? "dzień" : "dni"}` },
   ];
 
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from("[data-stat-card]", {
+        opacity: 0,
+        y: 12,
+        duration: 0.4,
+        ease: "power2.out",
+        stagger: 0.06,
+      });
+    },
+    { scope: gridRef, dependencies: [stats] },
+  );
+
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" ref={gridRef}>
       {tiles.map((tile) => (
-        <Card key={tile.label} className="gap-1 py-4">
+        <Card key={tile.label} data-stat-card className="gap-1 py-4">
           <CardHeader className="px-4">
             <CardDescription className="text-xs">{tile.label}</CardDescription>
           </CardHeader>

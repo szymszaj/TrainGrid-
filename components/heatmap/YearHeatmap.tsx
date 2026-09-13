@@ -1,5 +1,9 @@
+"use client";
+
+import { useRef } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatDisplayDate, MONTH_LABELS_PL } from "@/lib/format/date";
+import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 import type { HeatmapData, HeatmapDay, HeatmapLevel } from "@/types/heatmap.types";
 
@@ -26,9 +30,27 @@ interface YearHeatmapProps {
 }
 
 export function YearHeatmap({ data }: YearHeatmapProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from("[data-cell]", {
+        opacity: 0,
+        scale: 0.4,
+        duration: 0.35,
+        ease: "back.out(1.7)",
+        stagger: {
+          each: 0.0035,
+          from: "start",
+        },
+      });
+    },
+    { scope: gridRef, dependencies: [data] },
+  );
+
   return (
     <div className="w-full overflow-x-auto pb-2">
-      <div className="inline-flex items-center gap-4">
+      <div className="inline-flex items-center gap-4" ref={gridRef}>
         <div className="inline-flex flex-col gap-1.5">
           <div className="flex gap-1.5 pl-0">
             {data.weeks.map((week, index) => {
@@ -48,6 +70,7 @@ export function YearHeatmap({ data }: YearHeatmapProps) {
                     <TooltipTrigger
                       render={
                         <div
+                          data-cell
                           className={cn(
                             "size-4 rounded-sm border border-black/40",
                             LEVEL_CLASSES[day.level],
