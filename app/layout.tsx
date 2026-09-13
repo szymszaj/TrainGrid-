@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { getCategories } from "@/lib/data/categories.data";
@@ -31,13 +32,15 @@ export default async function RootLayout({
   const categoryOptions = parseCategoryOptions(categories);
 
   return (
-    <html lang="pl" className="dark">
+    <html lang="pl" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <TooltipProvider>
-          <Header categories={categoryOptions} />
-          <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
-          <Toaster />
-        </TooltipProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <TooltipProvider>
+            <Header categories={categoryOptions} />
+            <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+            <Toaster />
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
