@@ -33,7 +33,9 @@ export default async function RootLayout({
 
   return (
     <html lang="pl" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <TooltipProvider>
             <Header categories={categoryOptions} />

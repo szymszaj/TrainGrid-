@@ -38,13 +38,20 @@ export function DeleteEntryButton({ entryId }: DeleteEntryButtonProps) {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="Usuń wpis">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setOpen(true)}
+        aria-label="Usuń wpis"
+      >
         <TrashIcon className="size-4" />
       </Button>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Usunąć ten wpis?</AlertDialogTitle>
-          <AlertDialogDescription>Tej operacji nie można cofnąć.</AlertDialogDescription>
+          <AlertDialogDescription>
+            Tej operacji nie można cofnąć.
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Anuluj</AlertDialogCancel>

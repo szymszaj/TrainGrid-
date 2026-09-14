@@ -23,16 +23,23 @@ export function EntryListItem({ entry, categories }: EntryListItemProps) {
         <div className="flex flex-wrap items-center gap-2">
           <span
             className="flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium"
-            style={{ backgroundColor: `${entry.category.color}26`, color: entry.category.color }}
+            style={{
+              backgroundColor: `${entry.category.color}26`,
+              color: entry.category.color,
+            }}
           >
             {entry.category.icon && <span>{entry.category.icon}</span>}
             {entry.category.name}
           </span>
-          <span className="text-xs text-muted-foreground">{formatDisplayDate(entry.date)}</span>
+          <span className="text-xs text-muted-foreground">
+            {formatDisplayDate(entry.date)}
+          </span>
         </div>
         <p className="font-medium">{entry.topic}</p>
         {entry.description && (
-          <p className="whitespace-pre-line text-sm text-muted-foreground">{entry.description}</p>
+          <p className="whitespace-pre-line text-sm text-muted-foreground">
+            {entry.description}
+          </p>
         )}
         {(entry.durationMinutes || entry.distanceKm) && (
           <p className="text-xs text-muted-foreground">
@@ -43,12 +50,22 @@ export function EntryListItem({ entry, categories }: EntryListItemProps) {
         )}
       </div>
       <div className="flex shrink-0 items-center gap-1">
-        <Button variant="ghost" size="icon" aria-label="Edytuj wpis" onClick={() => setEditOpen(true)}>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Edytuj wpis"
+          onClick={() => setEditOpen(true)}
+        >
           <PencilIcon className="size-4" />
         </Button>
         <DeleteEntryButton entryId={entry.id} />
       </div>
-      <EntryFormDialog categories={categories} open={editOpen} onOpenChange={setEditOpen} entry={entry} />
+      <EntryFormDialog
+        categories={categories}
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        entry={entry}
+      />
     </div>
   );
 }

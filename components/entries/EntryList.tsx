@@ -8,7 +8,11 @@ interface EntryListProps {
   emptyMessage?: string;
 }
 
-export function EntryList({ entries, categories, emptyMessage = "Brak wpisów." }: EntryListProps) {
+export function EntryList({
+  entries,
+  categories,
+  emptyMessage = "Brak wpisów.",
+}: EntryListProps) {
   if (entries.length === 0) {
     return <p className="text-sm text-muted-foreground">{emptyMessage}</p>;
   }
